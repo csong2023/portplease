@@ -1,12 +1,23 @@
+<?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Collect post data from form
     $name = $_POST['contact-name'];
     $email = $_POST['contact-email'];
-    $subject = $_POST['subject'];
     $message = $_POST['contact-message'];
+    $subject = $_POST['subject'];
 
-    $to = 'your_email@example.com'; // where you want to send the emails
+    // Destination email address
+    $to = 'yunhoson@andrew.cmu.edu';
+    
+    // Construct email headers
     $headers = "From: " . $email;
 
-    mail($to, $subject, $message, $headers);
-    echo "Email sent!";
+    // Validate email and send
+    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        mail($to, $subject, $message, $headers);
+        echo "Email sent successfully";
+    } else {
+        echo "Invalid email format";
+    }
 }
+?>
